@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69987b403df62a44a9b5cb2f12e46684, type: 3}
+  m_Name: DebugPlusConfig
+  m_EditorClassIdentifier: 
+  _useClassPrefix: 1
+  _removeClassSuffixes: 1
+  _missingTagBehavior: 5
+  _logInfo: 2
+  _logWarning: 2
+  _logError: 2
+  _customTags:
+  - _name: Init
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: CleanUp
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: Audio
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: Input
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: Camera
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: SceneManagement
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: AI
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: Terrain
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1
+  - _name: Misc
+    _logInfo: 1
+    _logWarning: 1
+    _logError: 1

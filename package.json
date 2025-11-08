@@ -1,0 +1,15 @@
+{
+  "name": "com.naxtorgames.debugplus",
+  "displayName": "Debug Plus",
+  "version": "0.2.0",
+  "author": "Naxtor Games",
+  "description": "A custom layer for unitys debug logger with settings to control what should be logged.",
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Default Settings",
+      "description": "A default configuration setting.",
+      "path": "Samples~/DefaultSettings"
+    }
+  ]
+}

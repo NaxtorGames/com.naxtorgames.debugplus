@@ -1,0 +1,14 @@
+{
+    "name": "com.naxtorgames.debugplus.runtime",
+    "rootNamespace": "NaxtorGames.Debugging",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
