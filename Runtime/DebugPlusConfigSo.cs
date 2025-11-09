@@ -17,13 +17,14 @@ namespace NaxtorGames.Debugging
         [SerializeField] private bool _useClassPrefix = true;
         [Tooltip("If enabled, removes class suffixes like 'Mono' or 'So'/'SO'.")]
         [SerializeField] private bool _removeClassSuffixes = true;
+
         [Tooltip("Specifies what the debugger should do when a tag is missing.")]
         [SerializeField] private MissingTagBehaviorType _missingTagBehavior = MissingTagBehaviorType.Ignore;
-        [Space()]
+
         [SerializeField] private LogType _logInfo = LogType.All;
         [SerializeField] private LogType _logWarning = LogType.All;
         [SerializeField] private LogType _logError = LogType.All;
-        [Space()]
+
         [SerializeField] private List<DebugPlusCustomTag> _customTags = new List<DebugPlusCustomTag>();
 
         private bool _isLookupBuild = false;

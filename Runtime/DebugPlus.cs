@@ -1,6 +1,6 @@
 #if !DEBUG_PLUS_NO_LOGGING
 using System;
-using UnityEngine; 
+using UnityEngine;
 #endif
 
 using Object = UnityEngine.Object;
@@ -8,6 +8,9 @@ using Type = System.Type;
 
 namespace NaxtorGames.Debugging
 {
+    /// <summary>
+    /// A custom layer for unitys <see cref="UnityEngine.Debug"/> logger with tags and settings (<see cref="DebugPlusConfigSo"/>) to control what should be logged.
+    /// </summary>
     public static class DebugPlus
     {
         public const string LOG_TAG = "[<color=" + CORE_HEX_COLOR + ">DebugPlus</color>]";
@@ -44,111 +47,165 @@ namespace NaxtorGames.Debugging
         private static void InitializeOnLoad()
         {
             s_debugConfig = null;
-        } 
+        }
 #endif
-
+        /// <summary>
+        /// Logs a message without tag at 'Info'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogInfo(string message, Object context, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            if (DebugConfig.ShouldLogInfo == LogType.None)
+            if (DebugConfig.ShouldLogInfo == LogType.All || DebugConfig.ShouldLogInfo == LogType.OnlyWithoutTag)
             {
-                return;
+                UpdateMessage(ref message, classType);
+
+                Debug.Log(message, context);
             }
-
-            UpdateMessage(ref message, classType);
-
-            Debug.Log(message, context);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message without tag at 'Info'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogInfo(string message, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
             LogInfo(message, context: null, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Info'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogInfo(string message, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, tag, LogLevelType.Info, classType); 
+            LogCustomTag(message, tag, LogLevelType.Info, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Info'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogInfo(string message, Object context, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, context, tag, LogLevelType.Info, classType); 
+            LogCustomTag(message, context, tag, LogLevelType.Info, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message without tag at 'Warning'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogWarning(string message, Object context, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            if (DebugConfig.ShouldLogWarning == LogType.None)
+            if (DebugConfig.ShouldLogWarning == LogType.All || DebugConfig.ShouldLogWarning == LogType.OnlyWithoutTag)
             {
-                return;
+                UpdateMessage(ref message, classType);
+
+                Debug.LogWarning(message, context);
             }
-
-            UpdateMessage(ref message, classType);
-
-            Debug.LogWarning(message, context); 
 #endif
         }
-
+        /// <summary>
+        /// Logs a message without tag at 'Warning'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogWarning(string message, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogWarning(message, context: null, classType); 
+            LogWarning(message, context: null, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Warning'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogWarning(string message, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, tag, LogLevelType.Warning, classType); 
+            LogCustomTag(message, tag, LogLevelType.Warning, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Warning'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogWarning(string message, Object context, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, context, tag, LogLevelType.Warning, classType); 
+            LogCustomTag(message, context, tag, LogLevelType.Warning, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message without tag at 'Error'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogError(string message, Object context, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            if (DebugConfig.ShouldLogError == LogType.None)
+            if (DebugConfig.ShouldLogError == LogType.OnlyWithoutTag || DebugConfig.ShouldLogError == LogType.All)
             {
-                return;
+                UpdateMessage(ref message, classType);
+
+                Debug.LogError(message, context);
             }
-
-            UpdateMessage(ref message, classType);
-
-            Debug.LogError(message, context); 
 #endif
         }
-
+        /// <summary>
+        /// Logs a message without tag at 'Error'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogError(string message, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogError(message, context: null, classType); 
+            LogError(message, context: null, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Error'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogError(string message, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, tag, LogLevelType.Error, classType); 
+            LogCustomTag(message, tag, LogLevelType.Error, classType);
 #endif
         }
-
+        /// <summary>
+        /// Logs a message with tag at 'Error'-level.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="tag">The tag for this message.</param>
+        /// <param name="context">The object reference.</param>
+        /// <param name="classType">The <see langword="typeof"/> the class (Optional).</param>
         public static void LogError(string message, Object context, string tag, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, context, tag, LogLevelType.Error, classType); 
+            LogCustomTag(message, context, tag, LogLevelType.Error, classType);
 #endif
         }
 
@@ -164,19 +221,19 @@ namespace NaxtorGames.Debugging
                 switch (logLevel)
                 {
                     case LogLevelType.Info:
-                        if (DebugConfig.ShouldLogInfo == LogType.All)
+                        if (DebugConfig.ShouldLogInfo == LogType.All || DebugConfig.ShouldLogInfo == LogType.OnlyWithTag)
                         {
                             Debug.Log(message, context);
                         }
                         break;
                     case LogLevelType.Warning:
-                        if (DebugConfig.ShouldLogWarning == LogType.All)
+                        if (DebugConfig.ShouldLogWarning == LogType.All || DebugConfig.ShouldLogWarning == LogType.OnlyWithTag)
                         {
                             Debug.LogWarning(message, context);
                         }
                         break;
                     case LogLevelType.Error:
-                        if (DebugConfig.ShouldLogError == LogType.All)
+                        if (DebugConfig.ShouldLogError == LogType.All || DebugConfig.ShouldLogError == LogType.OnlyWithTag)
                         {
                             Debug.LogError(message, context);
                         }
@@ -256,14 +313,14 @@ namespace NaxtorGames.Debugging
                     }
                 }
                 return;
-            } 
+            }
 #endif
         }
 
         private static void LogCustomTag(string message, string customTag, LogLevelType logLevel, Type classType = null)
         {
 #if !DEBUG_PLUS_NO_LOGGING
-            LogCustomTag(message, null, customTag, logLevel, classType); 
+            LogCustomTag(message, null, customTag, logLevel, classType);
 #endif
         }
 
@@ -289,7 +346,7 @@ namespace NaxtorGames.Debugging
                 }
 
                 message = $"[<color={MESSAGE_HEX_COLOR}>{className}</color>] {message}";
-            } 
+            }
 #endif
         }
 
@@ -322,7 +379,7 @@ namespace NaxtorGames.Debugging
                 }
             }
 
-            value = valueSpan.ToString(); 
+            value = valueSpan.ToString();
 #endif
         }
     }

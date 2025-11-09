@@ -15,9 +15,9 @@ MonoBehaviour:
   _useClassPrefix: 1
   _removeClassSuffixes: 1
   _missingTagBehavior: 5
-  _logInfo: 2
-  _logWarning: 2
-  _logError: 2
+  _logInfo: 3
+  _logWarning: 3
+  _logError: 3
   _customTags:
   - _name: Init
     _logInfo: 1

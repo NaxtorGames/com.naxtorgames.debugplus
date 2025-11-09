@@ -1,9 +1,9 @@
 {
   "name": "com.naxtorgames.debugplus",
   "displayName": "Debug Plus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Naxtor Games",
-  "description": "A custom layer for unitys debug logger with settings to control what should be logged.",
+  "description": "A custom layer for unitys debug logger with tag and settings to control what should be logged.",
   "dependencies": {},
   "samples": [
     {

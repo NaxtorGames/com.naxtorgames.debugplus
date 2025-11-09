@@ -57,20 +57,26 @@ namespace NaxtorGames.Debugging.EditorScripts
 
         public sealed override void OnInspectorGUI()
         {
-            EditorGUILayout.HelpBox("File requirements:\nName: '" + DebugPlusConfigSo.FILE_NAME + "'\nFolder: 'Resources/Debugging'", MessageType.None);
+            DrawHeader("Info");
+
+            const string INFO_FILE_REQUIREMENTS = "File requirements:\nName: '" + DebugPlusConfigSo.FILE_NAME + "'\nFolder: 'Resources/Debugging'";
+            EditorGUILayout.HelpBox(INFO_FILE_REQUIREMENTS, MessageType.None);
             if (_isInValidFolder && _isValidName)
             {
-                EditorGUILayout.HelpBox("The name and folder for this asset is correct!", MessageType.Info);
+                const string INFO_ALL_CORRECT = "The name and folder for this asset is correct!";
+                EditorGUILayout.HelpBox(INFO_ALL_CORRECT, MessageType.Info);
             }
             else
             {
                 if (!_isInValidFolder)
                 {
-                    EditorGUILayout.HelpBox("This file is not in a 'Resources/Debugging' folder and cannot be found by the debugger.", MessageType.Error);
+                    const string INFO_INVALID_FOLDER = "This file is not in a 'Resources/Debugging' folder and cannot be found by the debugger.";
+                    EditorGUILayout.HelpBox(INFO_INVALID_FOLDER, MessageType.Error);
                 }
                 if (!_isValidName)
                 {
-                    EditorGUILayout.HelpBox("This file has not the correct name of '" + DebugPlusConfigSo.FILE_NAME + "' and cannot be found by the debugger.", MessageType.Error);
+                    const string INFO_INVALID_NAME = "This file has not the correct name of '" + DebugPlusConfigSo.FILE_NAME + "' and cannot be found by the debugger.";
+                    EditorGUILayout.HelpBox(INFO_INVALID_NAME, MessageType.Error);
                 }
             }
 
@@ -80,15 +86,20 @@ namespace NaxtorGames.Debugging.EditorScripts
 
             _ = EditorGUILayout.PropertyField(_useClassPrefixProperty);
             _ = EditorGUILayout.PropertyField(_removeClassSuffixesProperty);
+
+            DrawHeader("Missing Tags");
             _ = EditorGUILayout.PropertyField(_missingTagProperty);
+            DrawMissingTagOptions();
+
+            DrawHeader("Log Levels");
             _ = EditorGUILayout.PropertyField(_logInfoProperty);
             _ = EditorGUILayout.PropertyField(_logWarningProperty);
             _ = EditorGUILayout.PropertyField(_logErrorProperty);
 
-            EditorGUILayout.LabelField("Tags", EditorStyles.boldLabel);
+            DrawHeader("Tags");
             _ = EditorGUILayout.PropertyField(_customTagsProperty);
 
-            if (GUILayout.Button("Remove Invalid/Duplicated Tags"))
+            if (GUILayout.Button("Remove Invalid / Duplicated Tags"))
             {
                 _script.RemoveInvalidTags();
             }
@@ -98,6 +109,22 @@ namespace NaxtorGames.Debugging.EditorScripts
             }
 
             _ = this.serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawMissingTagOptions()
+        {
+            string infoText = (MissingTagBehaviorType)_missingTagProperty.enumValueIndex switch
+            {
+                MissingTagBehaviorType.Ignore => "Dose not print any hint or message of missing tags.",
+                MissingTagBehaviorType.Info => "Informs about the missing tag at 'Info'-log level. Dose not show the message.",
+                MissingTagBehaviorType.Warning => "Informs about the missing tag at 'Warning'-log level. Dose not show the message.",
+                MissingTagBehaviorType.Error => "Informs about the missing tag at 'Error'-log level. Dose not show the message.",
+                MissingTagBehaviorType.Print => "Informs about the missing tag. Also prints the message. Log level is the original message log level.",
+                MissingTagBehaviorType.Add => "Adds the missing tag to the 'Custom Tag'-list.",
+                _ => "invalid selection",
+            };
+
+            EditorGUILayout.HelpBox(infoText, MessageType.None);
         }
 
         private static bool IsInResourcesFolder(UnityEngine.Object asset)
@@ -115,6 +142,12 @@ namespace NaxtorGames.Debugging.EditorScripts
             }
 
             return path.Contains(DebugPlus.ASSET_FILE_PATH);
+        }
+
+        private void DrawHeader(string text)
+        {
+            EditorGUILayout.Space(3.0f);
+            EditorGUILayout.LabelField(text, EditorStyles.boldLabel);
         }
     }
 }
